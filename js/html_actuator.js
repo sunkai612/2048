@@ -67,7 +67,25 @@ HTMLActuator.prototype.addTile = function (tile) {
   this.applyClasses(wrapper, classes);
 
   inner.classList.add("tile-inner");
-  inner.textContent = tile.value;
+
+  var text_mapping = {
+       2: '親',
+       4: '愛',
+       8: '的',
+      16: '寶',
+      32: '貝',
+      64: '三',
+     128: '週',
+     256: '年',
+     512: '快',
+    1024: '樂',
+    2048: '！',
+  };
+
+  inner.textContent = (tile.value <= 2048) ?
+                        text_mapping[tile.value] :
+                        Array( Math.log2(tile.value) - 10 ).join('!')
+                        ;
 
   if (tile.previousPosition) {
     // Make sure that the tile gets rendered in the previous position first
